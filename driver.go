@@ -40,13 +40,13 @@ func NewDriver(
 }
 
 func (d *driver) Run() {
-	var localNode interface{}
-	localNode = node.NewLocalNode(d.os, d.filepath, d.logger, d.volumesRoot, d.nodeId)
-	ids := localNode.(csi.IdentityServer)
-	ns := localNode.(csi.NodeServer)
+	var ns csi.NodeServer
+	ns = node.NewLocalNode(d.os, d.filepath, d.logger, d.volumesRoot, d.nodeId)
 
-	var cs csi.ControllerServer
-	cs = controller.NewController(d.os, d.filepath, d.mountPathRoot)
+	var localController interface{}
+	localController = controller.NewController(d.os, d.filepath, d.mountPathRoot)
+	cs := localController.(csi.ControllerServer)
+	ids := localController.(csi.IdentityServer)
 
 	s := csicommon.NewNonBlockingGRPCServer()
 	s.Start(d.endpoint, ids, cs, ns)
