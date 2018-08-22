@@ -17,6 +17,7 @@ type driver struct {
 	volumesRoot   string
 	mountPathRoot string
 	endpoint      string
+	nodeId        string
 }
 
 func NewDriver(
@@ -25,6 +26,7 @@ func NewDriver(
 	volumesRoot string,
 	mountPathRoot string,
 	endpoint string,
+	nodeId string,
 ) *driver {
 	return &driver{
 		logger:        logger,
@@ -33,12 +35,13 @@ func NewDriver(
 		volumesRoot:   volumesRoot,
 		mountPathRoot: mountPathRoot,
 		endpoint:      endpoint,
+		nodeId:        nodeId,
 	}
 }
 
 func (d *driver) Run() {
 	var localNode interface{}
-	localNode = node.NewLocalNode(d.os, d.filepath, d.logger, d.volumesRoot)
+	localNode = node.NewLocalNode(d.os, d.filepath, d.logger, d.volumesRoot, d.nodeId)
 	ids := localNode.(csi.IdentityServer)
 	ns := localNode.(csi.NodeServer)
 

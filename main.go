@@ -11,6 +11,7 @@ import (
 
 var (
 	endpoint      = flag.String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
+	nodeId        = flag.String("nodeId", "", "ID of the Kubernetes node")
 	volumesRoot   = flag.String("volumesRoot", "/tmp/_volumes", "path to directory where node plugin mount point start with")
 	mountPathRoot = flag.String("mountPathRoot", "", "path to directory where controller plugin mount point start with")
 )
@@ -27,6 +28,6 @@ func handle() {
 	sink := lager.NewReconfigurableSink(lager.NewWriterSink(os.Stdout, lager.DEBUG), lager.DEBUG)
 	logger.RegisterSink(sink)
 
-	driver := NewDriver(logger, &osshim.OsShim{}, &filepathshim.FilepathShim{}, *volumesRoot, *mountPathRoot, *endpoint)
+	driver := NewDriver(logger, &osshim.OsShim{}, &filepathshim.FilepathShim{}, *volumesRoot, *mountPathRoot, *endpoint, *nodeId)
 	driver.Run()
 }
