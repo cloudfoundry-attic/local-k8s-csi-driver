@@ -13,6 +13,7 @@ import (
 type driver struct {
 	logger        lager.Logger
 	os            osshim.Os
+	osHelper      node.OsHelper
 	filepath      filepathshim.Filepath
 	volumesRoot   string
 	mountPathRoot string
@@ -22,7 +23,9 @@ type driver struct {
 
 func NewDriver(
 	logger lager.Logger,
-	os osshim.Os, filepath filepathshim.Filepath,
+	os osshim.Os,
+	osHelper node.OsHelper,
+	filepath filepathshim.Filepath,
 	volumesRoot string,
 	mountPathRoot string,
 	endpoint string,
@@ -31,6 +34,7 @@ func NewDriver(
 	return &driver{
 		logger:        logger,
 		os:            os,
+		osHelper:      osHelper,
 		filepath:      filepath,
 		volumesRoot:   volumesRoot,
 		mountPathRoot: mountPathRoot,
@@ -41,7 +45,7 @@ func NewDriver(
 
 func (d *driver) Run() {
 	var ns csi.NodeServer
-	ns = node.NewLocalNode(d.os, d.filepath, d.logger, d.volumesRoot, d.nodeId)
+	ns = node.NewLocalNode(d.os, d.osHelper, d.filepath, d.logger, d.volumesRoot, d.nodeId)
 
 	var localController interface{}
 	localController = controller.NewController(d.os, d.filepath, d.mountPathRoot)

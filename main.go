@@ -7,6 +7,7 @@ import (
 	"code.cloudfoundry.org/goshims/filepathshim"
 	"code.cloudfoundry.org/goshims/osshim"
 	"code.cloudfoundry.org/lager"
+	"github.com/jeffpak/local-node-plugin/oshelper"
 )
 
 var (
@@ -28,6 +29,7 @@ func handle() {
 	sink := lager.NewReconfigurableSink(lager.NewWriterSink(os.Stdout, lager.DEBUG), lager.DEBUG)
 	logger.RegisterSink(sink)
 
-	driver := NewDriver(logger, &osshim.OsShim{}, &filepathshim.FilepathShim{}, *volumesRoot, *mountPathRoot, *endpoint, *nodeId)
+	os := &osshim.OsShim{}
+	driver := NewDriver(logger, os, oshelper.NewOsHelper(os), &filepathshim.FilepathShim{}, *volumesRoot, *mountPathRoot, *endpoint, *nodeId)
 	driver.Run()
 }
