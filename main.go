@@ -7,7 +7,7 @@ import (
 	"code.cloudfoundry.org/goshims/filepathshim"
 	"code.cloudfoundry.org/goshims/osshim"
 	"code.cloudfoundry.org/lager"
-	"github.com/jeffpak/local-node-plugin/oshelper"
+	"code.cloudfoundry.org/local-node-plugin/oshelper"
 )
 
 var (

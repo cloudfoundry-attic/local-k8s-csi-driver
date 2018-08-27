@@ -1,3 +1,8 @@
 # Local CSI plugin
 
-This is WIP to try https://github.com/jeffpak/local-controller-plugin and https://github.com/jeffpak/local-node-plugin in k8s.
+This is a CSI driver that wraps local plugin so that it can run in Kubernetes.
+
+Local plugin repos:
+
+* https://github.com/cloudfoundry-incubator/local-controller-plugin
+* https://github.com/cloudfoundry-incubator/local-node-plugin

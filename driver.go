@@ -4,9 +4,9 @@ import (
 	"code.cloudfoundry.org/goshims/filepathshim"
 	"code.cloudfoundry.org/goshims/osshim"
 	"code.cloudfoundry.org/lager"
-	csi "github.com/container-storage-interface/spec/lib/go/csi/v0"
-	"github.com/jeffpak/local-controller-plugin/controller"
-	"github.com/jeffpak/local-node-plugin/node"
+	"code.cloudfoundry.org/local-controller-plugin/controller"
+	"code.cloudfoundry.org/local-node-plugin/node"
+	"github.com/container-storage-interface/spec/lib/go/csi/v0"
 	csicommon "github.com/kubernetes-csi/drivers/pkg/csi-common"
 )
 
