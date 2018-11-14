@@ -6,7 +6,7 @@ import (
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/local-controller-plugin/controller"
 	"code.cloudfoundry.org/local-node-plugin/node"
-	"github.com/container-storage-interface/spec/lib/go/csi/v0"
+	"github.com/container-storage-interface/spec/lib/go/csi"
 	csicommon "github.com/kubernetes-csi/drivers/pkg/csi-common"
 )
 
